@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/EventManager/static/js/main.29939cda.js",
+    "index.html": "/EventManager/index.html",
+    "main.29939cda.js.map": "/EventManager/static/js/main.29939cda.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.29939cda.js"
+  ]
+}

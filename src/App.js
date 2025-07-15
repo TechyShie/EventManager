@@ -7,15 +7,18 @@ function App() {
   const [events, setEvents] = useState([]);
   const [editingEvent, setEditingEvent] = useState(null);
 
-  // ✅ NEW: filters state
   const [filters, setFilters] = useState({
     title: "",
     date: "",
     location: "",
   });
 
+  // ✅ Base API URL (MockAPI)
+  const API_URL = "https://68767f48814c0dfa653c51c0.mockapi.io/api/v1/events";
+
+  // Fetch events on load
   useEffect(() => {
-    fetch("http://localhost:3001/events")
+    fetch(API_URL)
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched events:", data);
@@ -24,8 +27,9 @@ function App() {
       .catch((err) => console.error("Error fetching events:", err));
   }, []);
 
+  // Add new event
   const addEvent = (newEvent) => {
-    fetch("http://localhost:3001/events", {
+    fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newEvent),
@@ -34,13 +38,15 @@ function App() {
       .then((createdEvent) => setEvents([...events, createdEvent]));
   };
 
+  // Delete event
   const deleteEvent = (id) => {
-    fetch(`http://localhost:3001/events/${id}`, { method: "DELETE" })
+    fetch(`${API_URL}/${id}`, { method: "DELETE" })
       .then(() => setEvents(events.filter((e) => e.id !== id)));
   };
 
+  // Update event
   const updateEvent = (updatedEvent) => {
-    fetch(`http://localhost:3001/events/${updatedEvent.id}`, {
+    fetch(`${API_URL}/${updatedEvent.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedEvent),
@@ -52,10 +58,10 @@ function App() {
     setEditingEvent(null);
   };
 
-  // ✅ NEW: filteredEvents computed here
+  // Filtered events based on filters state
   const filteredEvents = events.filter((event) => {
-    const matchTitle = event.title.toLowerCase().includes(filters.title);
-    const matchLocation = event.location.toLowerCase().includes(filters.location);
+    const matchTitle = event.title.toLowerCase().includes(filters.title.toLowerCase());
+    const matchLocation = event.location.toLowerCase().includes(filters.location.toLowerCase());
     const matchDate = filters.date ? event.date === filters.date : true;
     return matchTitle && matchLocation && matchDate;
   });

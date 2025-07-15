@@ -1,0 +1,18 @@
+{
+  "events": [
+    {
+      "id": 2,
+      "title": "Second Event",
+      "description": "This is another event.",
+      "date": "2025-08-15",
+      "location": "Mombasa"
+    },
+    {
+      "title": "Graduation",
+      "description": "May/October Cohort Graduation Ceremony",
+      "date": "2025-12-22",
+      "location": "Carnival Ground",
+      "id": 3
+    }
+  ]
+}

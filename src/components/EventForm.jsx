@@ -1,70 +1,43 @@
 import React, { useState, useEffect } from "react";
 
 function EventForm({ onSubmit, onUpdate, editingEvent }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    date: "",
+    location: "",
+    description: "",
+    banner: "" // 🆕
+  });
 
   useEffect(() => {
     if (editingEvent) {
-      setTitle(editingEvent.title);
-      setDescription(editingEvent.description);
-      setDate(editingEvent.date);
-      setLocation(editingEvent.location);
-    } else {
-      setTitle("");
-      setDescription("");
-      setDate("");
-      setLocation("");
+      setFormData(editingEvent);
     }
   }, [editingEvent]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const eventData = { title, description, date, location };
     if (editingEvent) {
-      onUpdate({ ...eventData, id: editingEvent.id });
+      onUpdate(formData);
     } else {
-      onSubmit(eventData);
+      onSubmit(formData);
     }
-    setTitle("");
-    setDescription("");
-    setDate("");
-    setLocation("");
+    setFormData({ title: "", date: "", location: "", description: "", banner: "" });
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
-      <input
-        type="text"
-        placeholder="Event Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <textarea
-        placeholder="Event Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Location"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-        required
-      />
-      <button type="submit">
-        {editingEvent ? "Update Event" : "Add Event"}
-      </button>
+    <form onSubmit={handleSubmit}>
+      <input name="title" placeholder="Event Title" value={formData.title} onChange={handleChange} required />
+      <input name="date" type="date" value={formData.date} onChange={handleChange} required />
+      <input name="location" placeholder="Location" value={formData.location} onChange={handleChange} required />
+      <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} />
+      <input name="banner" placeholder="Banner Image URL" value={formData.banner} onChange={handleChange} />
+      <button type="submit">{editingEvent ? "Update Event" : "Add Event"}</button>
     </form>
   );
 }

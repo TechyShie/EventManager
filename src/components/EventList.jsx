@@ -1,22 +1,23 @@
 import React from "react";
-import EventItem from "./EventItem";
 
 function EventList({ events, onDelete, onEdit }) {
-  if (events.length === 0) {
-    return <p>No events yet.</p>;
-  }
-
   return (
-    <ul>
+    <div className="event-list">
       {events.map((event) => (
-        <EventItem
-          key={event.id}
-          event={event}
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
+        <div key={event.id} className="event-card">
+          {/* 🖼️ Banner image */}
+          {event.banner && (
+            <img src={event.banner} alt={event.title} style={{ width: "100%", height: "200px", objectFit: "cover" }} />
+          )}
+          <h3>{event.title}</h3>
+          <p><strong>Date:</strong> {event.date}</p>
+          <p><strong>Location:</strong> {event.location}</p>
+          <p>{event.description}</p>
+          <button onClick={() => onEdit(event)}>✏️ Edit</button>
+          <button onClick={() => onDelete(event.id)}>🗑️ Delete</button>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 

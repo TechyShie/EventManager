@@ -1,0 +1,52 @@
+body, #root, .app {
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #c58be5 0%, #a8c0ee 60%, #ffb7fd 100%);
+  transition: background 0.5s;
+}
+
+.app {
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.event-header {
+  font-family: 'Berkshire Swash', cursive;
+  font-size: 2.6rem;
+  color: #111;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.08);
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* align left */
+  gap: 0.7rem;
+}
+
+.header-icon {
+  font-size: 2.2rem;
+  color: #111; /* match font color */
+}
+
+.main-nav {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 0.2rem;
+}
+
+.nav-link {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  color: #222;
+  text-decoration: none;
+  padding: 0.1rem 0.3rem;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #c58be5;
+}
+
+/* ...rest of your CSS... */
